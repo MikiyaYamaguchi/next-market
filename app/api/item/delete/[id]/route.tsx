@@ -4,12 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const reqBody = await request.json();
   try {
     await connectDB();
-    const { id } = params;
+    const id = (await params).id;
     const singleItem = await ItemModel.findById(id);
 
     if (!singleItem) {

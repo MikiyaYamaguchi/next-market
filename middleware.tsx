@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(request: NextRequest) {
   // const token = await request.headers.get("Authorization")?.split(" ")[1];
   const token =
-    "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImR1bW15QGdtYWlsLmNvbSIsImV4cCI6MTc0MjMwMTIyOX0._j722GA45pJWRNwYR8M_DfRhZXYcRUAVU-zRvikEUF8";
+    "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRvbmtleV9kdW1teUBnbWFpbC5jb20iLCJleHAiOjE3NDIzMDQzMzl9.1Dkw1SIiUmP8MIvPV1MU-Q1RA2FvgI65uuPRVelc-Nc";
   if (!token) {
     return NextResponse.json({ message: "トークンがありません" });
   }

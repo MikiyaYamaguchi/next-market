@@ -6,17 +6,16 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const reqBody = await request.json();
   try {
     await connectDB();
-    const { id } = await params;
-
+    const { id } = params;
     const singleItem = await ItemModel.findById(id);
 
     if (!singleItem) {
       return NextResponse.json({ message: "アイテムが見つかりません" });
     }
 
-    const reqBody = await request.json();
     if (singleItem.email === reqBody.email) {
       await ItemModel.deleteOne({ _id: id });
       return NextResponse.json({ message: "アイテム削除成功" });

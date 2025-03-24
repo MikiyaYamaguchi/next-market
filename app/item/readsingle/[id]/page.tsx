@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const getSingleItem = async (id: string) => {
   const response = await fetch(
-    `http://localhost:3001/api/item/readsingle/${id}`,
+    `${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`,
     { cache: "no-store" }
   );
   const jsonData = await response.json();
@@ -15,7 +15,7 @@ const ReadSingleItem = async (context: { params: Promise<{ id: string }> }) => {
   const { id } = await context.params;
   const singleItem = await getSingleItem(id);
   return (
-    <div>
+    <div className="grid-container-si">
       <div>
         <Image
           src={singleItem.image}

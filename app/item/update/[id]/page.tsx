@@ -20,7 +20,7 @@ const UpdateItem = ({ params }: { params: Promise<{ id: string }> }) => {
   useEffect(() => {
     const getSingleItem = async (id: string) => {
       const response = await fetch(
-        `http://localhost:3001/api/item/readsingle/${id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`,
         { cache: "no-store" }
       );
       const jsonData = await response.json();
@@ -38,7 +38,7 @@ const UpdateItem = ({ params }: { params: Promise<{ id: string }> }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3001/api/item/update/${unwrapParams.id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/item/update/${unwrapParams.id}`,
         {
           method: "PUT",
           headers: {
@@ -66,7 +66,7 @@ const UpdateItem = ({ params }: { params: Promise<{ id: string }> }) => {
   if (loginUserEmail === email) {
     return (
       <div>
-        <h1>アイテム編集</h1>
+        <h1 className="page-title">アイテム編集</h1>
         <form onSubmit={handleSubmit}>
           <input
             type="text"

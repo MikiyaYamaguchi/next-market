@@ -21,7 +21,7 @@ const DeleteItem = ({ params }: { params: Promise<{ id: string }> }) => {
   useEffect(() => {
     const getSingleItem = async (id: string) => {
       const response = await fetch(
-        `http://localhost:3001/api/item/readsingle/${id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`,
         { cache: "no-store" }
       );
       const jsonData = await response.json();
@@ -39,7 +39,7 @@ const DeleteItem = ({ params }: { params: Promise<{ id: string }> }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3001/api/item/delete/${unwrapParams.id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/item/delete/${unwrapParams.id}`,
         {
           method: "DELETE",
           headers: {
@@ -63,7 +63,7 @@ const DeleteItem = ({ params }: { params: Promise<{ id: string }> }) => {
   if (loginUserEmail === email) {
     return (
       <div>
-        <h1>アイテム削除</h1>
+        <h1 className="page-title">アイテム削除</h1>
         <form onSubmit={handleSubmit}>
           <h2>{title}</h2>
           <Image src={image} width={750} height={500} alt={title} priority />

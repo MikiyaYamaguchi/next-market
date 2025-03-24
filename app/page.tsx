@@ -11,9 +11,12 @@ interface item {
 }
 
 const getAllItems = async () => {
-  const response = await fetch("http://localhost:3001/api/item/readall", {
-    cache: "no-cache",
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_URL}/api/item/readall`,
+    {
+      cache: "no-cache",
+    }
+  );
   const jsonData = await response.json();
   const allItems = jsonData.allItems;
   return allItems;
@@ -22,8 +25,7 @@ const getAllItems = async () => {
 const ReadAllItems = async () => {
   const allItems = await getAllItems();
   return (
-    <div>
-      <h1 className="h1-style">こんにちは</h1>
+    <div className="grid-container-in">
       {allItems.map((item: item) => (
         <Link href={`/item/readsingle/${item._id}`} key={item._id}>
           <Image

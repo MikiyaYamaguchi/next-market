@@ -1,5 +1,6 @@
 "use client";
 
+import useAuth from "@/app/utils/useAuth";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -10,6 +11,8 @@ const CreateItem = () => {
   const [description, setDescription] = useState("");
 
   const router = useRouter();
+
+  const loginUserEmail = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +29,7 @@ const CreateItem = () => {
           price: price,
           image: image,
           description: description,
-          email: "ダミーデータ",
+          email: loginUserEmail,
         }),
       });
       const jsonData = await response.json();
@@ -37,46 +40,48 @@ const CreateItem = () => {
       alert("アイテム作成失敗");
     }
   };
-  return (
-    <div>
-      <h1>アイテム作成</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="アイテム名"
-          required
-        />
-        <input
-          type="text"
-          name="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          placeholder="価格"
-          required
-        />
-        <input
-          type="text"
-          name="image"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          placeholder="画像"
-          required
-        />
-        <textarea
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={15}
-          placeholder="商品説明"
-          required
-        ></textarea>
-        <button>作成</button>
-      </form>
-    </div>
-  );
+  if (loginUserEmail) {
+    return (
+      <div>
+        <h1>アイテム作成</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="アイテム名"
+            required
+          />
+          <input
+            type="text"
+            name="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder="価格"
+            required
+          />
+          <input
+            type="text"
+            name="image"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            placeholder="画像"
+            required
+          />
+          <textarea
+            name="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={15}
+            placeholder="商品説明"
+            required
+          ></textarea>
+          <button>作成</button>
+        </form>
+      </div>
+    );
+  }
 };
 
 export default CreateItem;

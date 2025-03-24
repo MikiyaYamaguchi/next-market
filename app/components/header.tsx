@@ -7,7 +7,7 @@ const Header = () => {
       <div>
         <Link href="/">
           <Image
-            src="header.svg"
+            src="/header.svg"
             width={1330}
             height={148}
             alt="header-image"

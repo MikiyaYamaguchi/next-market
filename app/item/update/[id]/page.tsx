@@ -10,6 +10,7 @@ const UpdateItem = ({ params }: { params: Promise<{ id: string }> }) => {
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -30,6 +31,7 @@ const UpdateItem = ({ params }: { params: Promise<{ id: string }> }) => {
       setImage(singleItem.image);
       setDescription(singleItem.description);
       setEmail(singleItem.email);
+      setLoading(true);
     };
     getSingleItem(unwrapParams.id);
   }, [params]);
@@ -63,49 +65,53 @@ const UpdateItem = ({ params }: { params: Promise<{ id: string }> }) => {
       alert("アイテム編集失敗");
     }
   };
-  if (loginUserEmail === email) {
-    return (
-      <div>
-        <h1 className="page-title">アイテム編集</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="アイテム名"
-            required
-          />
-          <input
-            type="text"
-            name="price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder="価格"
-            required
-          />
-          <input
-            type="text"
-            name="image"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-            placeholder="画像"
-            required
-          />
-          <textarea
-            name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows={15}
-            placeholder="商品説明"
-            required
-          ></textarea>
-          <button>編集</button>
-        </form>
-      </div>
-    );
+  if (loading) {
+    if (loginUserEmail === email) {
+      return (
+        <div>
+          <h1 className="page-title">アイテム編集</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="アイテム名"
+              required
+            />
+            <input
+              type="text"
+              name="price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="価格"
+              required
+            />
+            <input
+              type="text"
+              name="image"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              placeholder="画像"
+              required
+            />
+            <textarea
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={15}
+              placeholder="商品説明"
+              required
+            ></textarea>
+            <button>編集</button>
+          </form>
+        </div>
+      );
+    } else {
+      return <h1>権限がありません</h1>;
+    }
   } else {
-    return <h1>権限がありません</h1>;
+    return <h1>ローディング中...</h1>;
   }
 };
 

@@ -1,5 +1,6 @@
 "use client";
 
+import ImgInput from "@/app/components/imgInput";
 import useAuth from "@/app/utils/useAuth";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -47,6 +48,7 @@ const CreateItem = () => {
     return (
       <div>
         <h1 className="page-title">アイテム作成</h1>
+        <ImgInput setImage={setImage} />
         <form onSubmit={handleSubmit}>
           <input
             type="text"

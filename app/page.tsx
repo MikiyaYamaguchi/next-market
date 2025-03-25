@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,6 +10,11 @@ interface item {
   description: string;
   email: string;
 }
+
+export const metadata: Metadata = {
+  title: "Next Market",
+  description: "Next Market",
+};
 
 const getAllItems = async () => {
   const response = await fetch(

@@ -1,6 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 
+export async function generateMetadata(context: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await context.params;
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`,
+    { cache: "no-store" }
+  );
+  const jsonData = await response.json();
+  const singleItem = jsonData.singleItem;
+  return {
+    title: singleItem.title,
+    description: singleItem.description,
+  };
+}
+
 const getSingleItem = async (id: string) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`,

@@ -35,7 +35,7 @@ const DeleteItem = ({ params }: { params: Promise<{ id: string }> }) => {
       setLoading(true);
     };
     getSingleItem(unwrapParams.id);
-  }, [params]);
+  }, [unwrapParams.id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
